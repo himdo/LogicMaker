@@ -36,4 +36,11 @@ public class SwitchBlock : CircuitBlock {
       GameObjectSpriteRender.sprite = OffSprite;
     }
   }
+
+  void OnMouseDown() {
+    if (Value == 1) 
+      SwitchEnabled = false;
+    else 
+      SwitchEnabled = true;
+  }
 }
