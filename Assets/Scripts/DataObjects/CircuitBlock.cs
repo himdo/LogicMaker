@@ -6,9 +6,11 @@ public class CircuitBlock : MonoBehaviour
 {
   public float Value;
   public List<CircuitBlock> InputBlocks;
+  public List<GameObject> LineObjects;
   // Start is called before the first frame update
   void Start()
   {
+    DrawInputLines();
     Init();
   }
 
@@ -19,6 +21,22 @@ public class CircuitBlock : MonoBehaviour
       OnAction();
     else
       OffAction();
+  }
+
+  void DrawInputLines() {
+    for (int i = 0; i < InputBlocks.Count; i++) { 
+      GameObject lineObject = new GameObject();
+      lineObject.transform.position = this.gameObject.transform.position;
+      LineRenderer lr = lineObject.AddComponent<LineRenderer>();
+      lr.material = new Material(Shader.Find("Standard"));
+      // lr.SetColors(color, color);
+      lr.startWidth = 0.1f;
+      lr.endWidth = 0.1f;
+      // lr.widthCurve = 0.1f;
+      lr.SetPosition(0, this.gameObject.transform.position);
+      lr.SetPosition(1, InputBlocks[i].gameObject.transform.position);
+      LineObjects.Add(lineObject);
+    }
   }
 
   public virtual void Init() { }

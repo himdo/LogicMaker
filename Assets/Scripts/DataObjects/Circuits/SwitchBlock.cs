@@ -5,9 +5,17 @@ using UnityEngine;
 public class SwitchBlock : CircuitBlock {
   public bool SwitchEnabled;
 
+  [SerializeField]
+  Sprite OnSprite;
+
+  [SerializeField]
+  Sprite OffSprite;
+  SpriteRenderer GameObjectSpriteRender;
   public override void Init() {
     SwitchEnabled = false;
     Value = 0;
+    GameObjectSpriteRender = this.gameObject.GetComponent<SpriteRenderer>();
+    GameObjectSpriteRender.sprite = OffSprite;
   }
 
   public override bool IsSwitchedOn() {
@@ -18,12 +26,14 @@ public class SwitchBlock : CircuitBlock {
   public override void OnAction() {
     if (Value == 0) {
       Value = 1;
+      GameObjectSpriteRender.sprite = OnSprite;
     }
   }
   
   public override void OffAction() {
     if (Value == 1) {
       Value = 0;
+      GameObjectSpriteRender.sprite = OffSprite;
     }
   }
 }
